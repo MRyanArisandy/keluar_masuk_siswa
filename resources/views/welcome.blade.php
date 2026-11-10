@@ -4,21 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Izin Keluar Masuk Siswa - SMK Negeri 1</title>
-    
+
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Theme Mode Initializer (Prevent FOUC) -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark) || (savedTheme === 'system' && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
 
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -31,6 +45,7 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.25s ease, color 0.25s ease;
         }
         ::-webkit-scrollbar {
             width: 6px;
@@ -67,6 +82,163 @@
                 padding: 0 !important;
             }
         }
+
+        /* ================================================================= */
+        /* DARK MODE DYNAMIC OVERRIDES                                       */
+        /* ================================================================= */
+        html.dark {
+            color-scheme: dark;
+        }
+        html.dark body {
+            background-color: #0b0f19 !important;
+            color: #f1f5f9 !important;
+        }
+        html.dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        html.dark ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        html.dark #view-login {
+            background-color: #0b0f19 !important;
+        }
+        html.dark .bg-white {
+            background-color: #151d2e !important;
+            color: #f8fafc !important;
+        }
+        html.dark .bg-slate-100 {
+            background-color: #0b0f19 !important;
+            color: #cbd5e1 !important;
+        }
+        html.dark .bg-slate-50,
+        html.dark .bg-slate-50\/80,
+        html.dark .bg-slate-50\/70,
+        html.dark .bg-slate-50\/50,
+        html.dark .bg-slate-50\/40,
+        html.dark .bg-slate-50\/20 {
+            background-color: #111827 !important;
+            color: #cbd5e1 !important;
+        }
+        html.dark .bg-slate-200,
+        html.dark .bg-slate-200\/80 {
+            background-color: #1e293b !important;
+            color: #94a3b8 !important;
+        }
+        html.dark .border-slate-100,
+        html.dark .border-slate-200,
+        html.dark .border-slate-200\/60,
+        html.dark .border-slate-200\/70,
+        html.dark .border-slate-200\/80,
+        html.dark .border-slate-200\/90 {
+            border-color: #1e293b !important;
+        }
+        html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+        html.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+            border-color: #1e293b !important;
+        }
+        html.dark .text-slate-800,
+        html.dark .text-blue-900 {
+            color: #f8fafc !important;
+        }
+        html.dark .text-slate-700 {
+            color: #e2e8f0 !important;
+        }
+        html.dark .text-slate-600 {
+            color: #cbd5e1 !important;
+        }
+        html.dark .text-slate-500 {
+            color: #94a3b8 !important;
+        }
+        html.dark .text-slate-400 {
+            color: #64748b !important;
+        }
+        html.dark header {
+            background-color: #151d2e !important;
+            border-color: #1e293b !important;
+        }
+        html.dark #sidebar {
+            background-color: #0b0f19 !important;
+            border-color: #1e293b !important;
+        }
+        html.dark input,
+        html.dark select {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f8fafc !important;
+        }
+        html.dark input:read-only {
+            background-color: #1e293b !important;
+            color: #94a3b8 !important;
+        }
+        html.dark .hover\:bg-slate-50:hover,
+        html.dark .hover\:bg-slate-50\/70:hover,
+        html.dark .hover\:bg-slate-50\/80:hover,
+        html.dark .hover\:bg-slate-100:hover,
+        html.dark .hover\:bg-slate-200:hover {
+            background-color: #1e293b !important;
+        }
+        html.dark tr.bg-slate-50 {
+            background-color: #111827 !important;
+        }
+        html.dark .shadow-sm,
+        html.dark .shadow-md,
+        html.dark .shadow-lg,
+        html.dark .shadow-xl,
+        html.dark .shadow-2xl {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5) !important;
+        }
+        html.dark #modal-calendar-day-detail > div,
+        html.dark #modal-detail > div {
+            background-color: #151d2e !important;
+            border-color: #1e293b !important;
+        }
+        html.dark #notification-dropdown {
+            background-color: #151d2e !important;
+            border-color: #1e293b !important;
+        }
+        html.dark .bg-emerald-100 {
+            background-color: rgba(6, 78, 59, 0.45) !important;
+            color: #6ee7b7 !important;
+            border-color: #065f46 !important;
+        }
+        html.dark .bg-amber-100 {
+            background-color: rgba(120, 53, 15, 0.45) !important;
+            color: #fcd34d !important;
+            border-color: #78350f !important;
+        }
+        html.dark .bg-rose-100 {
+            background-color: rgba(136, 19, 55, 0.45) !important;
+            color: #fda4af !important;
+            border-color: #881337 !important;
+        }
+        html.dark .bg-blue-100 {
+            background-color: rgba(30, 58, 138, 0.45) !important;
+            color: #93c5fd !important;
+            border-color: #1e3a8a !important;
+        }
+        html.dark .bg-emerald-50 {
+            background-color: rgba(6, 78, 59, 0.25) !important;
+            border-color: #065f46 !important;
+            color: #a7f3d0 !important;
+        }
+        html.dark .bg-amber-50 {
+            background-color: rgba(120, 53, 15, 0.25) !important;
+            border-color: #78350f !important;
+            color: #fde68a !important;
+        }
+        html.dark .bg-blue-50 {
+            background-color: rgba(30, 58, 138, 0.25) !important;
+            border-color: #1e3a8a !important;
+            color: #bfdbfe !important;
+        }
+        html.dark .bg-rose-50 {
+            background-color: rgba(136, 19, 55, 0.25) !important;
+            border-color: #881337 !important;
+            color: #fecdd3 !important;
+        }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen">
@@ -77,9 +249,17 @@
     <!-- ================================================================= -->
     <!-- 1. HALAMAN LOGIN (Foto 3)                                         -->
     <!-- ================================================================= -->
-    <div id="view-login" class="min-h-screen flex items-center justify-center p-4 bg-slate-100">
+    <div id="view-login" class="min-h-screen flex items-center justify-center p-4 bg-slate-100 relative">
+        <!-- Floating Theme Switcher on Login Page -->
+        <div class="fixed top-5 right-5 z-40">
+            <button onclick="toggleTheme()" class="px-3.5 py-2 bg-white/90 backdrop-blur-md border border-slate-200 rounded-2xl shadow-lg hover:bg-white text-slate-700 transition-all flex items-center space-x-2 text-xs font-bold" title="Ubah Tema (Terang / Gelap)">
+                <i id="theme-login-icon" data-lucide="moon" class="w-4 h-4 text-blue-600"></i>
+                <span id="theme-login-label">Mode Gelap</span>
+            </button>
+        </div>
+
         <div class="bg-white rounded-3xl shadow-2xl border border-slate-200/80 max-w-4xl w-full overflow-hidden grid grid-cols-1 md:grid-cols-2">
-            
+
             <!-- LEFT PANEL: Branding & School Illustration -->
             <div class="bg-slate-50/80 p-8 flex flex-col justify-between items-center text-center border-b md:border-b-0 md:border-r border-slate-200/80">
                 <div class="w-full pt-4">
@@ -105,7 +285,7 @@
             <div class="p-6 md:p-8 flex flex-col justify-center">
                 <div class="text-center mb-5">
                     <h2 class="text-xs font-bold text-slate-700 tracking-wide uppercase mb-3">Pilih Jenis Login</h2>
-                    
+
                     <div class="grid grid-cols-3 gap-2">
                         <button id="login-tab-siswa" type="button" onclick="selectLoginRole('siswa')" class="flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all bg-blue-50 border-blue-500 text-blue-600 font-bold shadow-sm">
                             <i data-lucide="user-round" class="w-5 h-5 mb-1"></i>
@@ -262,8 +442,13 @@
                     </h1>
                 </div>
 
-                <div class="flex items-center space-x-4">
-                    
+                <div class="flex items-center space-x-3 sm:space-x-4">
+
+                    <!-- THEME TOGGLE BUTTON (Terang / Gelap) -->
+                    <button id="btn-theme-toggle" onclick="toggleTheme()" class="p-2.5 text-slate-500 hover:text-slate-700 rounded-full hover:bg-slate-100 transition-all focus:outline-none" title="Ubah Tema (Terang / Gelap)">
+                        <i id="theme-toggle-icon" data-lucide="moon" class="w-5 h-5"></i>
+                    </button>
+
                     <!-- NOTIFICATION BELL CONTAINER -->
                     <div class="relative">
                         <button id="btn-notification-bell" onclick="toggleNotificationDropdown(event)" class="relative p-2.5 text-slate-500 hover:text-slate-700 rounded-full hover:bg-slate-100 transition-all focus:outline-none" title="Notifikasi">
@@ -330,10 +515,24 @@
                             </h2>
                             <p class="text-sm font-semibold text-slate-400 mt-1">XII RPL • NISN 0076543210</p>
                         </div>
-                        <button onclick="switchTab('siswa-ajukan')" class="inline-flex items-center justify-center space-x-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg shadow-blue-600/25 text-xs font-bold transition-all">
+                        <button id="btn-ajukan-baru-dashboard" onclick="handleKlikAjukanIzin()" class="inline-flex items-center justify-center space-x-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg shadow-blue-600/25 text-xs font-bold transition-all">
                             <i data-lucide="plus" class="w-4 h-4"></i>
-                            <span>+ Ajukan Izin Baru</span>
+                            <span id="btn-ajukan-text">+ Ajukan Izin Baru</span>
                         </button>
+                    </div>
+
+                    <!-- ACTIVE PERMIT NOTICE BANNER (Siswa Dashboard) -->
+                    <div id="siswa-active-permit-banner" class="hidden p-4 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs transition-all shadow-sm">
+                        <div class="flex items-start space-x-3.5">
+                            <div id="banner-icon-bg" class="p-2 rounded-xl shrink-0 mt-0.5">
+                                <i id="banner-icon" data-lucide="info" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 id="banner-title" class="font-extrabold text-sm mb-0.5"></h4>
+                                <p id="banner-desc" class="font-medium leading-relaxed"></p>
+                            </div>
+                        </div>
+                        <div id="banner-action-area" class="shrink-0 self-end sm:self-auto"></div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -403,7 +602,61 @@
                         <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Ajukan Izin Keluar</h2>
                     </div>
 
-                    <div class="bg-white rounded-2xl border border-slate-200/90 p-6 md:p-8 shadow-sm">
+                    <!-- BLOCKED STATE ALERT (Tampil jika siswa masih memiliki izin PENDING atau DISETUJUI) -->
+                    <div id="container-ajukan-blocked" class="hidden bg-white rounded-2xl border border-slate-200/90 p-6 md:p-8 shadow-sm space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div id="blocked-icon-box" class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                                <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
+                                    <h3 class="text-lg font-extrabold text-slate-800">Pengajuan Izin Baru Dinonaktifkan</h3>
+                                    <span id="blocked-status-badge" class="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-amber-100 text-amber-700 border border-amber-200">
+                                        PENDING
+                                    </span>
+                                </div>
+                                <p id="blocked-message-desc" class="text-xs text-slate-600 font-medium leading-relaxed">
+                                    Anda masih memiliki pengajuan izin keluar yang belum selesai. Untuk mencegah penumpukan antrean dan penyalahgunaan izin ganda, Anda tidak dapat mengajukan izin baru.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Active permit info box -->
+                        <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-4 text-xs space-y-3">
+                            <div class="font-bold text-slate-700 flex items-center justify-between border-b border-slate-200/60 pb-2">
+                                <span>Detail Izin yang Sedang Berjalan:</span>
+                                <span id="blocked-permit-date" class="text-slate-500 font-medium">16 Juni 2025</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <span class="text-slate-400 block text-[11px]">Alasan / Keperluan:</span>
+                                    <span id="blocked-permit-alasan" class="font-bold text-slate-800">Keperluan Keluarga</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 block text-[11px]">Waktu Izin:</span>
+                                    <span id="blocked-permit-jam" class="font-bold text-slate-800">10:15 - 12:00 WIB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action buttons according to status -->
+                        <div id="blocked-action-container" class="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                            <button id="btn-blocked-konfirmasi" onclick="switchTab('siswa-konfirmasi')" class="w-full sm:w-auto px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center space-x-1.5">
+                                <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                <span>Konfirmasi Tiba di Sekolah</span>
+                            </button>
+                            <button id="btn-blocked-batal" onclick="handleBatalPendingActivePermit()" class="w-full sm:w-auto px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-md shadow-rose-600/20 transition-all flex items-center justify-center space-x-1.5">
+                                <i data-lucide="x-circle" class="w-4 h-4"></i>
+                                <span>Batalkan Pengajuan Izin Ini</span>
+                            </button>
+                            <button onclick="switchTab('siswa-dashboard')" class="w-full sm:w-auto px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold text-xs transition-colors">
+                                Kembali ke Dashboard
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CONTAINER FORM (Hanya tampil jika TIDAK ada izin aktif) -->
+                    <div id="container-form-ajukan" class="bg-white rounded-2xl border border-slate-200/90 p-6 md:p-8 shadow-sm">
                         <form onsubmit="handleFormKirimPermohonan(event)" class="space-y-5 text-xs">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div>
@@ -500,14 +753,14 @@
                         <div id="konfirmasi-icon-badge" class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner border border-emerald-100">
                             <i data-lucide="check-circle-2" class="w-8 h-8"></i>
                         </div>
-                        
+
                         <div>
                             <h2 id="konfirmasi-card-title" class="text-xl font-extrabold text-slate-800 tracking-tight">Konfirmasi Kembali ke Sekolah</h2>
                             <p id="konfirmasi-card-sub" class="text-xs text-slate-500 mt-1 font-medium leading-relaxed">
                                 Klik tombol di bawah ini jika Anda sudah kembali di lingkungan sekolah SMK Negeri 1.
                             </p>
                         </div>
-                        
+
                         <div class="bg-slate-50 p-4 rounded-2xl text-left text-xs space-y-2.5 border border-slate-200/70">
                             <div class="flex justify-between items-center">
                                 <span class="text-slate-400 font-semibold">Status Izin:</span>
@@ -628,7 +881,7 @@
                             <h2 class="text-2xl font-extrabold text-slate-800">Kalender Rekapitulasi Izin Siswa</h2>
                             <p class="text-xs text-slate-500 font-medium">Klik tanggal pada kalender untuk melihat seluruh siswa yang izin pada hari tersebut.</p>
                         </div>
-                        
+
                         <div class="flex items-center space-x-2 no-print">
                             <div class="flex items-center bg-slate-200/80 p-1 rounded-xl text-xs font-bold">
                                 <button id="btn-view-calendar" onclick="setLaporanViewMode('calendar')" class="px-3 py-1.5 rounded-lg bg-white text-blue-600 shadow-sm transition-all flex items-center space-x-1.5">
@@ -716,7 +969,7 @@
                                 <div>Jumat</div>
                                 <div class="text-blue-500">Sabtu</div>
                             </div>
-                            
+
                             <div id="calendar-grid-cells" class="grid grid-cols-7 gap-2 min-h-[360px]">
                             </div>
                         </div>
@@ -768,7 +1021,61 @@
                     <h2 class="text-2xl font-bold text-slate-800">Rekap Laporan Admin</h2>
                 </div>
                 <div id="tab-admin-pengaturan" class="tab-content hidden space-y-6">
-                    <h2 class="text-2xl font-bold text-slate-800">Pengaturan</h2>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-800">Pengaturan Sistem</h2>
+                        <p class="text-xs text-slate-500 font-medium">Kelola preferensi antarmuka dan konfigurasi tema aplikasi.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-200/90 p-6 md:p-8 shadow-sm space-y-6">
+                        <div class="border-b border-slate-100 pb-4">
+                            <h3 class="text-base font-extrabold text-slate-800">Tema & Tampilan Antarmuka</h3>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Pilih mode tampilan terang atau gelap agar nyaman saat menggunakan sistem.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <!-- Option Light -->
+                            <div onclick="applyTheme('light')" id="theme-card-light" class="p-5 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between space-y-4 hover:shadow-md border-blue-500 bg-blue-50/20">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold">
+                                        <i data-lucide="sun" class="w-5 h-5"></i>
+                                    </div>
+                                    <span id="badge-theme-light" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-600 text-white">Aktif</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-extrabold text-sm text-slate-800">Mode Terang (Light)</h4>
+                                    <p class="text-xs text-slate-500 font-medium mt-1 leading-snug">Warna latar cerah bersih dengan kontras tinggi, ideal untuk penggunaan siang hari.</p>
+                                </div>
+                            </div>
+
+                            <!-- Option Dark -->
+                            <div onclick="applyTheme('dark')" id="theme-card-dark" class="p-5 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between space-y-4 hover:shadow-md border-slate-200 hover:border-slate-300">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold">
+                                        <i data-lucide="moon" class="w-5 h-5"></i>
+                                    </div>
+                                    <span id="badge-theme-dark" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-600 text-white">Aktif</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-extrabold text-sm text-slate-800">Mode Gelap (Dark)</h4>
+                                    <p class="text-xs text-slate-500 font-medium mt-1 leading-snug">Nuansa gelap elegan yang ramah di mata untuk penggunaan malam hari.</p>
+                                </div>
+                            </div>
+
+                            <!-- Option System -->
+                            <div onclick="applyTheme('system')" id="theme-card-system" class="p-5 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between space-y-4 hover:shadow-md border-slate-200 hover:border-slate-300">
+                                <div class="flex items-center justify-between">
+                                    <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center font-bold">
+                                        <i data-lucide="laptop" class="w-5 h-5"></i>
+                                    </div>
+                                    <span id="badge-theme-system" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-600 text-white">Aktif</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-extrabold text-sm text-slate-800">Ikuti Sistem (Auto)</h4>
+                                    <p class="text-xs text-slate-500 font-medium mt-1 leading-snug">Secara otomatis mengikuti pengaturan mode gelap/terang perangkat OS Anda.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </main>
@@ -882,7 +1189,112 @@
             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
         ];
 
+        // =================================================================
+        // THEME MANAGEMENT ENGINE (LIGHT & DARK MODE)
+        // =================================================================
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme, false);
+
+            // Listen to OS color scheme changes if set to system
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (localStorage.getItem('theme') === 'system') {
+                    applyTheme('system', false);
+                }
+            });
+        }
+
+        function applyTheme(theme, notify = true) {
+            const html = document.documentElement;
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            let isDark = false;
+            if (theme === 'dark') {
+                isDark = true;
+            } else if (theme === 'light') {
+                isDark = false;
+            } else if (theme === 'system') {
+                isDark = prefersDark;
+            }
+
+            localStorage.setItem('theme', theme);
+
+            if (isDark) {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+
+            // Update Header Icon & Button State
+            const headerIcon = document.getElementById('theme-toggle-icon');
+            const btnTheme = document.getElementById('btn-theme-toggle');
+            if (headerIcon) {
+                headerIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+            }
+            if (btnTheme) {
+                btnTheme.title = isDark ? 'Ubah ke Mode Terang (Light)' : 'Ubah ke Mode Gelap (Dark)';
+                if (isDark) {
+                    btnTheme.className = 'p-2.5 text-amber-400 hover:text-amber-300 rounded-full hover:bg-slate-800 transition-all focus:outline-none';
+                } else {
+                    btnTheme.className = 'p-2.5 text-slate-500 hover:text-slate-700 rounded-full hover:bg-slate-100 transition-all focus:outline-none';
+                }
+            }
+
+            // Update Login Page Theme Switcher
+            const loginIcon = document.getElementById('theme-login-icon');
+            const loginLabel = document.getElementById('theme-login-label');
+            if (loginIcon) {
+                loginIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+                loginIcon.className = isDark ? 'w-4 h-4 text-amber-400' : 'w-4 h-4 text-blue-600';
+            }
+            if (loginLabel) {
+                loginLabel.textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
+            }
+
+            // Update Admin Pengaturan Cards
+            const cardLight = document.getElementById('theme-card-light');
+            const cardDark = document.getElementById('theme-card-dark');
+            const cardSystem = document.getElementById('theme-card-system');
+            const badgeLight = document.getElementById('badge-theme-light');
+            const badgeDark = document.getElementById('badge-theme-dark');
+            const badgeSystem = document.getElementById('badge-theme-system');
+
+            if (cardLight && cardDark && cardSystem) {
+                [cardLight, cardDark, cardSystem].forEach(c => {
+                    c.className = "p-5 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between space-y-4 hover:shadow-md border-slate-200 hover:border-slate-300";
+                });
+                if (badgeLight) badgeLight.classList.add('hidden');
+                if (badgeDark) badgeDark.classList.add('hidden');
+                if (badgeSystem) badgeSystem.classList.add('hidden');
+
+                if (theme === 'light') {
+                    cardLight.className = "p-5 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between space-y-4 hover:shadow-md border-blue-500 bg-blue-50/20";
+                    if (badgeLight) badgeLight.classList.remove('hidden');
+                } else if (theme === 'dark') {
+                    cardDark.className = "p-5 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between space-y-4 hover:shadow-md border-blue-500 bg-blue-50/20";
+                    if (badgeDark) badgeDark.classList.remove('hidden');
+                } else if (theme === 'system') {
+                    cardSystem.className = "p-5 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between space-y-4 hover:shadow-md border-blue-500 bg-blue-50/20";
+                    if (badgeSystem) badgeSystem.classList.remove('hidden');
+                }
+            }
+
+            lucide.createIcons();
+
+            if (notify) {
+                const label = theme === 'dark' ? 'Mode Gelap (Dark)' : (theme === 'light' ? 'Mode Terang (Light)' : 'Mode Otomatis (Sistem)');
+                const iconToast = isDark ? '🌙' : '☀️';
+                showToast('info', `Tema Diperbarui ${iconToast}`, `Tema antarmuka sistem telah diubah ke ${label}.`);
+            }
+        }
+
+        function toggleTheme() {
+            const isCurrentlyDark = document.documentElement.classList.contains('dark');
+            applyTheme(isCurrentlyDark ? 'light' : 'dark', true);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
             lucide.createIcons();
             showView('login');
         });
@@ -893,7 +1305,7 @@
             if (!container) return;
 
             const toast = document.createElement('div');
-            
+
             let bgClass = "bg-slate-900 text-white";
             let iconName = "info";
 
@@ -965,7 +1377,7 @@
                         userAvatar.textContent = "AS";
                         userAvatar.className = "w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow";
                     }
-                    
+
                     renderSiswaDashboard();
                     switchTab('siswa-dashboard');
                     showToast('info', 'Selamat Datang', 'Login berhasil sebagai Siswa Andi Saputra.');
@@ -1049,9 +1461,123 @@
             }
         }
 
-        // Action: Siswa Submit Permohonan Izin Baru (REALTIME MANGINDAH KE GURU PIKET)
+        // HELPER: Cek apakah siswa memiliki izin aktif (PENDING atau DISETUJUI)
+        function getActivePermitForStudent(studentName = 'Andi Saputra') {
+            return masterArchiveDatabase.find(r => r.nama === studentName && (r.status === 'PENDING' || r.status === 'DISETUJUI'));
+        }
+
+        // Action: Siswa Klik Tombol "+ Ajukan Izin Baru"
+        function handleKlikAjukanIzin() {
+            const activePermit = getActivePermitForStudent('Andi Saputra');
+            if (activePermit) {
+                if (activePermit.status === 'PENDING') {
+                    showToast('reject', 'Pengajuan Terkunci ⚠️', 'Anda masih memiliki permohonan izin berstatus PENDING. Harap tunggu persetujuan Guru Piket atau batalkan permohonan jika ingin mengajukan ulang.');
+                } else if (activePermit.status === 'DISETUJUI') {
+                    showToast('reject', 'Pengajuan Terkunci ⚠️', 'Izin Anda masih berstatus DISETUJUI dan belum kembali ke sekolah. Harap konfirmasi kembali terlebih dahulu.');
+                }
+                switchTab('siswa-ajukan');
+                return;
+            }
+            switchTab('siswa-ajukan');
+        }
+
+        // Action: Siswa Batalkan Izin yang Masih Berstatus PENDING
+        function handleBatalPendingActivePermit() {
+            const activePermit = getActivePermitForStudent('Andi Saputra');
+            if (!activePermit || activePermit.status !== 'PENDING') {
+                showToast('info', 'Informasi', 'Hanya permohonan berstatus PENDING yang dapat dibatalkan.');
+                return;
+            }
+
+            if (confirm('Apakah Anda yakin ingin membatalkan pengajuan izin keluar ini? Pengajuan akan dihapus dari antrean Guru Piket.')) {
+                activePermit.status = 'DIBATALKAN';
+                renderSiswaDashboard();
+                renderGuruTables();
+                renderCalendarGrid();
+                renderLaporanTable();
+                renderSiswaFormAjukanState();
+                showToast('info', 'Pengajuan Dibatalkan', 'Pengajuan izin keluar berhasil dibatalkan. Anda sekarang dapat mengajukan izin baru.');
+            }
+        }
+
+        // Render UI Form Ajukan Siswa: Tampilkan Form atau Tampilan Terkunci (Blocked State)
+        function renderSiswaFormAjukanState() {
+            const activePermit = getActivePermitForStudent('Andi Saputra');
+            const containerBlocked = document.getElementById('container-ajukan-blocked');
+            const containerForm = document.getElementById('container-form-ajukan');
+
+            if (!containerBlocked || !containerForm) return;
+
+            if (activePermit) {
+                containerBlocked.classList.remove('hidden');
+                containerForm.classList.add('hidden');
+
+                const statusBadge = document.getElementById('blocked-status-badge');
+                const iconBox = document.getElementById('blocked-icon-box');
+                const msgDesc = document.getElementById('blocked-message-desc');
+                const permitDate = document.getElementById('blocked-permit-date');
+                const permitAlasan = document.getElementById('blocked-permit-alasan');
+                const permitJam = document.getElementById('blocked-permit-jam');
+                const btnKonfirmasi = document.getElementById('btn-blocked-konfirmasi');
+                const btnBatal = document.getElementById('btn-blocked-batal');
+
+                if (statusBadge) {
+                    statusBadge.textContent = activePermit.status;
+                    if (activePermit.status === 'DISETUJUI') {
+                        statusBadge.className = 'px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-200';
+                    } else {
+                        statusBadge.className = 'px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-amber-100 text-amber-700 border border-amber-200';
+                    }
+                }
+
+                if (permitDate) permitDate.textContent = activePermit.tanggal;
+                if (permitAlasan) permitAlasan.textContent = activePermit.alasan;
+                if (permitJam) permitJam.textContent = `${activePermit.jamKeluar} - ${activePermit.jamKembali} WIB`;
+
+                if (activePermit.status === 'PENDING') {
+                    if (iconBox) {
+                        iconBox.className = "w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 shadow-sm mt-0.5";
+                        iconBox.innerHTML = '<i data-lucide="clock" class="w-6 h-6"></i>';
+                    }
+                    if (msgDesc) {
+                        msgDesc.textContent = 'Permohonan izin Anda saat ini masih berstatus PENDING dan sedang berada dalam antrean Guru Piket. Untuk mencegah antrean menumpuk dan izin ganda, Anda tidak dapat mengajukan izin baru sebelum permohonan ini diproses.';
+                    }
+                    if (btnKonfirmasi) btnKonfirmasi.classList.add('hidden');
+                    if (btnBatal) btnBatal.classList.remove('hidden');
+                } else if (activePermit.status === 'DISETUJUI') {
+                    if (iconBox) {
+                        iconBox.className = "w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 shadow-sm mt-0.5";
+                        iconBox.innerHTML = '<i data-lucide="shield-alert" class="w-6 h-6"></i>';
+                    }
+                    if (msgDesc) {
+                        msgDesc.textContent = 'Izin keluar Anda telah DISETUJUI dan Anda saat ini tercatat sedang di luar sekolah. Anda belum dapat mengajukan izin baru sebelum melakukan konfirmasi bahwa Anda telah tiba kembali di sekolah.';
+                    }
+                    if (btnKonfirmasi) btnKonfirmasi.classList.remove('hidden');
+                    if (btnBatal) btnBatal.classList.add('hidden');
+                }
+                lucide.createIcons();
+            } else {
+                containerBlocked.classList.add('hidden');
+                containerForm.classList.remove('hidden');
+            }
+        }
+
+        // Action: Siswa Submit Permohonan Izin Baru (DILENGKAPI PROTEKSI IZIN GANDA)
         function handleFormKirimPermohonan(e) {
             if (e) e.preventDefault();
+
+            // VALIDASI KETAT: Larang pengajuan jika masih ada izin PENDING atau DISETUJUI
+            const activePermit = getActivePermitForStudent('Andi Saputra');
+            if (activePermit) {
+                if (activePermit.status === 'PENDING') {
+                    showToast('reject', 'Pengajuan Ditolak ⚠️', 'Anda masih memiliki permohonan izin berstatus PENDING. Harap tunggu persetujuan Guru Piket atau batalkan permohonan.');
+                } else if (activePermit.status === 'DISETUJUI') {
+                    showToast('reject', 'Pengajuan Ditolak ⚠️', 'Izin sebelumnya masih DISETUJUI dan Anda belum kembali ke sekolah. Harap konfirmasi kembali terlebih dahulu.');
+                }
+                renderSiswaDashboard();
+                renderSiswaFormAjukanState();
+                return false;
+            }
 
             const alasan = document.getElementById('form-alasan-select').value;
             const jamKeluar = document.getElementById('form-jam-keluar').value;
@@ -1082,19 +1608,15 @@
                 tanggal: formattedDate
             };
 
-            // Remove existing PENDING request for Andi if any, and add new request
-            const existingPendingIdx = masterArchiveDatabase.findIndex(r => r.nama === 'Andi Saputra' && r.status === 'PENDING');
-            if (existingPendingIdx !== -1) {
-                masterArchiveDatabase[existingPendingIdx] = newRequest;
-            } else {
-                masterArchiveDatabase.unshift(newRequest);
-            }
+            // Tambahkan izin baru ke antrean
+            masterArchiveDatabase.unshift(newRequest);
 
-            // RE-RENDER ALL VIEWS INCLUDING GURU PIKET PENDING TABLE!
+            // RE-RENDER SEMUA VIEW
             renderSiswaDashboard();
-            renderGuruTables();       // <-- CRITICAL FIX: SINKRONISASI KE PANEL GURU PIKET!
+            renderGuruTables();
             renderCalendarGrid();
             renderLaporanTable();
+            renderSiswaFormAjukanState();
 
             showToast('success', 'Pengajuan Berhasil Dikirim! 📩', 'Permohonan izin Andi Saputra telah MASUK ke Panel Persetujuan Guru Piket.');
             switchTab('siswa-dashboard');
@@ -1103,27 +1625,92 @@
         function handleKonfirmasiKembaliSiswaAction() {
             const andiItem = masterArchiveDatabase.find(r => r.nama === 'Andi Saputra' && (r.status === 'DISETUJUI' || r.status === 'PENDING'));
             if (andiItem) {
+                if (andiItem.status === 'PENDING') {
+                    showToast('reject', 'Izin Belum Disetujui ⚠️', 'Izin Anda masih dalam antrean PENDING dan belum disetujui Guru Piket.');
+                    return;
+                }
                 andiItem.status = 'SELESAI';
                 renderSiswaDashboard();
                 renderGuruTables();
                 renderCalendarGrid();
                 renderLaporanTable();
-                showToast('success', 'Konfirmasi Tiba Kembali 🎉', 'Terima kasih! Status perizinan Anda telah berhasil diperbarui menjadi SELESAI.');
+                renderSiswaFormAjukanState();
+                showToast('success', 'Konfirmasi Tiba Kembali 🎉', 'Terima kasih! Status perizinan Anda telah berhasil diperbarui menjadi SELESAI. Anda sekarang dapat mengajukan izin baru bila diperlukan.');
             }
         }
 
         // Render Siswa Dashboard
         function renderSiswaDashboard() {
             const sortedData = getSortedMasterDatabase();
-            const andiData = sortedData.find(item => item.nama === 'Andi Saputra') || sortedData[0];
-            
+            const activePermit = getActivePermitForStudent('Andi Saputra');
+            const andiData = activePermit || sortedData.find(item => item.nama === 'Andi Saputra') || { jamKeluar: '-', jamKembali: '-', tanggal: '-', status: 'SELESAI', alasan: '-' };
+
             const statusBadge = document.getElementById('siswa-status-badge');
             const statusSub = document.getElementById('siswa-status-subtext');
             const jamKeluarCard = document.getElementById('siswa-jam-keluar-card');
             const jamKembaliCard = document.getElementById('siswa-jam-kembali-card');
+            const tanggalCard = document.getElementById('siswa-tanggal-card');
 
             if (jamKeluarCard) jamKeluarCard.textContent = andiData.jamKeluar;
             if (jamKembaliCard) jamKembaliCard.textContent = andiData.jamKembali;
+            if (tanggalCard) tanggalCard.textContent = andiData.tanggal;
+
+            // UPDATE TOMBOL DASHBOARD "+ AJUKAN IZIN BARU" SESUAI STATUS
+            const btnAjukan = document.getElementById('btn-ajukan-baru-dashboard');
+            if (btnAjukan) {
+                if (activePermit) {
+                    btnAjukan.className = "inline-flex items-center justify-center space-x-2 px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-600 rounded-xl text-xs font-bold transition-all shadow-none";
+                    btnAjukan.innerHTML = `<i data-lucide="lock" class="w-4 h-4 text-slate-500"></i><span>Izin Sedang Aktif (${activePermit.status})</span>`;
+                    btnAjukan.title = `Tidak dapat mengajukan izin baru saat status masih ${activePermit.status}`;
+                } else {
+                    btnAjukan.className = "inline-flex items-center justify-center space-x-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg shadow-blue-600/25 text-xs font-bold transition-all";
+                    btnAjukan.innerHTML = `<i data-lucide="plus" class="w-4 h-4"></i><span>+ Ajukan Izin Baru</span>`;
+                    btnAjukan.title = "Ajukan izin keluar baru";
+                }
+            }
+
+            // UPDATE BANNER PERINGATAN IZIN AKTIF DI DASHBOARD
+            const banner = document.getElementById('siswa-active-permit-banner');
+            const bannerIconBg = document.getElementById('banner-icon-bg');
+            const bannerTitle = document.getElementById('banner-title');
+            const bannerDesc = document.getElementById('banner-desc');
+            const bannerAction = document.getElementById('banner-action-area');
+
+            if (banner && bannerTitle && bannerDesc && bannerAction) {
+                if (activePermit && activePermit.status === 'PENDING') {
+                    banner.classList.remove('hidden');
+                    banner.className = "p-4 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs transition-all shadow-sm bg-amber-50 border-amber-200 text-amber-900";
+                    if (bannerIconBg) {
+                        bannerIconBg.className = "p-2 rounded-xl shrink-0 mt-0.5 bg-amber-100 text-amber-700";
+                        bannerIconBg.innerHTML = '<i data-lucide="clock" class="w-5 h-5"></i>';
+                    }
+                    bannerTitle.textContent = "Pengajuan Izin Keluar Sedang Diproses (PENDING)";
+                    bannerDesc.textContent = `Anda memiliki permohonan izin keluar (${activePermit.jamKeluar} - ${activePermit.jamKembali} WIB, alasan: "${activePermit.alasan}") yang sedang menunggu verifikasi Guru Piket. Anda tidak dapat membuat permohonan baru untuk mencegah antrean menumpuk.`;
+                    bannerAction.innerHTML = `
+                        <button onclick="handleBatalPendingActivePermit()" class="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-sm transition-all whitespace-nowrap flex items-center space-x-1.5">
+                            <i data-lucide="x-circle" class="w-3.5 h-3.5"></i>
+                            <span>Batalkan Antrean</span>
+                        </button>
+                    `;
+                } else if (activePermit && activePermit.status === 'DISETUJUI') {
+                    banner.classList.remove('hidden');
+                    banner.className = "p-4 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs transition-all shadow-sm bg-emerald-50 border-emerald-200 text-emerald-900";
+                    if (bannerIconBg) {
+                        bannerIconBg.className = "p-2 rounded-xl shrink-0 mt-0.5 bg-emerald-100 text-emerald-700";
+                        bannerIconBg.innerHTML = '<i data-lucide="check-circle-2" class="w-5 h-5"></i>';
+                    }
+                    bannerTitle.textContent = "Izin Keluar Aktif: Anda Sedang Berada di Luar Sekolah (DISETUJUI)";
+                    bannerDesc.textContent = `Izin keluar telah disetujui hingga pukul ${activePermit.jamKembali} WIB. Demi ketertiban dan pencegahan izin ganda, harap konfirmasi kepulangan Anda segera setelah kembali ke sekolah sebelum mengajukan izin baru.`;
+                    bannerAction.innerHTML = `
+                        <button onclick="switchTab('siswa-konfirmasi')" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow-sm transition-all whitespace-nowrap flex items-center space-x-1.5">
+                            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                            <span>Konfirmasi Tiba</span>
+                        </button>
+                    `;
+                } else {
+                    banner.classList.add('hidden');
+                }
+            }
 
             const notifTitle = document.getElementById('notif-item-title');
             const notifDesc = document.getElementById('notif-item-desc');
@@ -1210,6 +1797,52 @@
                     btnKonfirmasi.className = 'w-full py-3.5 bg-blue-50 border border-blue-200 text-blue-700 font-extrabold rounded-2xl cursor-default text-xs flex items-center justify-center space-x-2';
                     btnKonfirmasi.innerHTML = '<i data-lucide="check-circle-2" class="w-4 h-4"></i><span>✓ Kehadiran Kembali Terkonfirmasi</span>';
                 }
+            } else if (andiData.status === 'DITOLAK') {
+                if (statusBadge) {
+                    statusBadge.textContent = 'DITOLAK';
+                    statusBadge.className = 'inline-block px-3 py-1 text-xs font-bold rounded-md bg-rose-100 text-rose-700 border border-rose-200';
+                }
+                if (statusSub) statusSub.textContent = 'Permohonan izin Anda sebelumnya ditolak oleh Guru Piket.';
+
+                if (notifTitle) {
+                    notifTitle.textContent = "Status Izin: DITOLAK ❌";
+                    notifDesc.textContent = `Pengajuan izin Anda telah ditolak oleh Guru Piket. Anda dapat mengajukan izin baru jika ada keperluan lain.`;
+                    notifIconBg.className = "w-9 h-9 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 mt-0.5 shadow-sm";
+                    notifIconBg.innerHTML = '<i data-lucide="x-circle" class="w-5 h-5"></i>';
+                }
+
+                if (konfStatusText) {
+                    konfStatusText.textContent = 'DITOLAK';
+                    konfStatusText.className = 'font-extrabold px-2.5 py-0.5 rounded text-[11px] bg-rose-100 text-rose-700 border border-rose-200';
+                    konfCardTitle.textContent = 'Pengajuan Ditolak';
+                    konfCardSub.textContent = 'Permohonan izin Anda ditolak. Anda tidak sedang dalam status izin keluar.';
+                    btnKonfirmasi.disabled = true;
+                    btnKonfirmasi.className = 'w-full py-3.5 bg-slate-200 text-slate-400 font-bold rounded-2xl cursor-not-allowed text-xs';
+                    btnKonfirmasi.innerHTML = '<i data-lucide="x-circle" class="w-4 h-4 mr-1"></i> Tidak Ada Izin Aktif';
+                }
+            } else if (andiData.status === 'DIBATALKAN') {
+                if (statusBadge) {
+                    statusBadge.textContent = 'DIBATALKAN';
+                    statusBadge.className = 'inline-block px-3 py-1 text-xs font-bold rounded-md bg-slate-100 text-slate-600 border border-slate-300';
+                }
+                if (statusSub) statusSub.textContent = 'Pengajuan izin sebelumnya telah dibatalkan.';
+
+                if (notifTitle) {
+                    notifTitle.textContent = "Status Izin: DIBATALKAN";
+                    notifDesc.textContent = `Permohonan izin Anda telah dibatalkan. Anda dapat mengajukan izin baru.`;
+                    notifIconBg.className = "w-9 h-9 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 mt-0.5 shadow-sm";
+                    notifIconBg.innerHTML = '<i data-lucide="info" class="w-5 h-5"></i>';
+                }
+
+                if (konfStatusText) {
+                    konfStatusText.textContent = 'DIBATALKAN';
+                    konfStatusText.className = 'font-extrabold px-2.5 py-0.5 rounded text-[11px] bg-slate-100 text-slate-600 border border-slate-300';
+                    konfCardTitle.textContent = 'Pengajuan Dibatalkan';
+                    konfCardSub.textContent = 'Anda telah membatalkan permohonan izin sebelumnya.';
+                    btnKonfirmasi.disabled = true;
+                    btnKonfirmasi.className = 'w-full py-3.5 bg-slate-200 text-slate-400 font-bold rounded-2xl cursor-not-allowed text-xs';
+                    btnKonfirmasi.innerHTML = '<i data-lucide="info" class="w-4 h-4 mr-1"></i> Tidak Ada Izin Aktif';
+                }
             }
 
             const tbody = document.getElementById('siswa-table-body');
@@ -1223,6 +1856,21 @@
                 if (item.status === 'DISETUJUI') badgeClass = "bg-emerald-100 text-emerald-700 border-emerald-200";
                 if (item.status === 'DITOLAK') badgeClass = "bg-rose-100 text-rose-700 border-rose-200";
                 if (item.status === 'SELESAI') badgeClass = "bg-slate-100 text-slate-700 border-slate-200";
+                if (item.status === 'DIBATALKAN') badgeClass = "bg-slate-100 text-slate-500 border-slate-300";
+
+                let actionButtons = `
+                    <button onclick="showDetailModal('${item.nama}', '${item.kelas}', '${item.alasan}', '${item.jamKeluar}', '${item.status}')" class="p-1 text-blue-600 hover:bg-blue-50 rounded" title="Lihat Detail">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                `;
+
+                if (item.nama === 'Andi Saputra' && item.status === 'PENDING') {
+                    actionButtons += `
+                        <button onclick="handleBatalPendingActivePermit()" class="p-1 text-rose-600 hover:bg-rose-50 rounded ml-1" title="Batalkan Pengajuan Izin Ini">
+                            <i data-lucide="x-circle" class="w-4 h-4"></i>
+                        </button>
+                    `;
+                }
 
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50/70 transition-colors";
@@ -1235,10 +1883,8 @@
                             ${item.status}
                         </span>
                     </td>
-                    <td class="py-4 px-5 text-center">
-                        <button onclick="showDetailModal('${item.nama}', '${item.kelas}', '${item.alasan}', '${item.jamKeluar}', '${item.status}')" class="p-1 text-blue-600 hover:bg-blue-50 rounded">
-                            <i data-lucide="eye" class="w-4 h-4"></i>
-                        </button>
+                    <td class="py-4 px-5 text-center flex items-center justify-center">
+                        ${actionButtons}
                     </td>
                 `;
                 if (tbody) tbody.appendChild(tr);
@@ -1292,7 +1938,7 @@
 
                 const cell = document.createElement('div');
                 let borderClass = "border border-slate-200/80 bg-white hover:border-blue-400 hover:shadow-md";
-                
+
                 if (dayRequests.length > 0) {
                     borderClass = "border-2 border-blue-400 bg-blue-50/20 hover:bg-blue-50/50 shadow-sm";
                 }
@@ -1602,6 +2248,7 @@
                 renderCalendarGrid();
                 renderSiswaDashboard();
                 renderLaporanTable();
+                renderSiswaFormAjukanState();
                 showToast('success', 'Izin Disetujui! ✅', `Izin ${item.nama} (${item.kelas}) telah DISETUJUI dan dipindahkan ke menu 'Siswa Di Luar'.`);
             }
         }
@@ -1614,6 +2261,7 @@
                 renderCalendarGrid();
                 renderSiswaDashboard();
                 renderLaporanTable();
+                renderSiswaFormAjukanState();
                 showToast('error', 'Izin Ditolak ❌', `Izin ${item.nama} (${item.kelas}) telah DITOLAK.`);
             }
         }
@@ -1626,13 +2274,15 @@
                 renderCalendarGrid();
                 renderSiswaDashboard();
                 renderLaporanTable();
+                renderSiswaFormAjukanState();
                 showToast('success', 'Siswa Kembali 🎉', `${item.nama} (${item.kelas}) telah kembali ke sekolah (Status: SELESAI).`);
             }
         }
 
         function openCurrentDetailSiswa() {
             const sortedData = getSortedMasterDatabase();
-            const andiData = sortedData.find(item => item.nama === 'Andi Saputra') || sortedData[0];
+            const activePermit = getActivePermitForStudent('Andi Saputra');
+            const andiData = activePermit || sortedData.find(item => item.nama === 'Andi Saputra') || sortedData[0];
             showDetailModal(andiData.nama, andiData.kelas, andiData.alasan, andiData.jamKeluar, andiData.status);
         }
 
@@ -1665,6 +2315,14 @@
             if (activeNav) {
                 activeNav.className = "nav-item flex items-center space-x-3 px-4 py-3 rounded-xl bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/25 transition-all font-medium text-sm";
             }
+
+            if (tabId === 'siswa-ajukan') {
+                renderSiswaFormAjukanState();
+            } else if (tabId === 'siswa-dashboard') {
+                renderSiswaDashboard();
+            }
+
+            lucide.createIcons();
 
             if (window.innerWidth < 768) {
                 const sidebar = document.getElementById('sidebar');
