@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Sistem Izin Keluar Masuk Siswa - SMK Negeri 1</title>
 
     <!-- Google Fonts: Plus Jakarta Sans -->
@@ -1189,6 +1190,39 @@
             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
         ];
 
+        // HELPER: SYNC DENGAN BACKEND DATABASE LARAVEL MYSQL
+        async function fetchPerizinanFromApi() {
+            try {
+                const res = await fetch('/api/perizinan');
+                if (res.ok) {
+                    const result = await res.json();
+                    if (result.success && Array.isArray(result.data) && result.data.length > 0) {
+                        masterArchiveDatabase = result.data.map(item => ({
+                            id: item.id,
+                            nama: item.nama,
+                            nisn: item.nisn || '',
+                            kelas: item.kelas,
+                            alasan: item.alasan,
+                            jamKeluar: item.jam_keluar,
+                            jamKembali: item.jam_kembali,
+                            jamKembaliAktual: item.jam_kembali_aktual,
+                            status: item.status,
+                            tanggal: item.tanggal ? (typeof item.tanggal === 'string' ? item.tanggal.substring(0, 10) : '') : '',
+                            keterangan: item.keterangan || '',
+                            guruPiket: item.guru_piket || ''
+                        }));
+                        renderSiswaDashboard();
+                        renderGuruTables();
+                        renderCalendarGrid();
+                        renderLaporanTable();
+                        renderSiswaFormAjukanState();
+                    }
+                }
+            } catch (err) {
+                console.log('API database mode fallback:', err);
+            }
+        }
+
         // =================================================================
         // THEME MANAGEMENT ENGINE (LIGHT & DARK MODE)
         // =================================================================
@@ -1297,6 +1331,7 @@
             initTheme();
             lucide.createIcons();
             showView('login');
+            fetchPerizinanFromApi();
         });
 
         // Toast Engine
@@ -1490,6 +1525,7 @@
             }
 
             if (confirm('Apakah Anda yakin ingin membatalkan pengajuan izin keluar ini? Pengajuan akan dihapus dari antrean Guru Piket.')) {
+                const targetId = activePermit.id;
                 activePermit.status = 'DIBATALKAN';
                 renderSiswaDashboard();
                 renderGuruTables();
@@ -1497,6 +1533,16 @@
                 renderLaporanTable();
                 renderSiswaFormAjukanState();
                 showToast('info', 'Pengajuan Dibatalkan', 'Pengajuan izin keluar berhasil dibatalkan. Anda sekarang dapat mengajukan izin baru.');
+
+                // Sync ke backend database
+                fetch(`/api/perizinan/${targetId}/batal`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    }
+                }).catch(e => console.log('Sync batal DB:', e));
             }
         }
 
@@ -1620,6 +1666,30 @@
 
             showToast('success', 'Pengajuan Berhasil Dikirim! 📩', 'Permohonan izin Andi Saputra telah MASUK ke Panel Persetujuan Guru Piket.');
             switchTab('siswa-dashboard');
+
+            // Simpan ke Database MySQL Backend
+            fetch('/api/perizinan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                },
+                body: JSON.stringify({
+                    nama: 'Andi Saputra',
+                    nisn: '0076543210',
+                    kelas: 'XII RPL',
+                    tanggal: formattedDate,
+                    jam_keluar: newRequest.jamKeluar,
+                    jam_kembali: newRequest.jamKembali,
+                    alasan: alasan,
+                    keterangan: document.getElementById('form-keterangan')?.value || ''
+                })
+            }).then(r => r.json()).then(res => {
+                if (res.success && res.data) {
+                    newRequest.id = res.data.id;
+                }
+            }).catch(e => console.log('Sync insert DB:', e));
         }
 
         function handleKonfirmasiKembaliSiswaAction() {
@@ -1629,6 +1699,7 @@
                     showToast('reject', 'Izin Belum Disetujui ⚠️', 'Izin Anda masih dalam antrean PENDING dan belum disetujui Guru Piket.');
                     return;
                 }
+                const targetId = andiItem.id;
                 andiItem.status = 'SELESAI';
                 renderSiswaDashboard();
                 renderGuruTables();
@@ -1636,6 +1707,16 @@
                 renderLaporanTable();
                 renderSiswaFormAjukanState();
                 showToast('success', 'Konfirmasi Tiba Kembali 🎉', 'Terima kasih! Status perizinan Anda telah berhasil diperbarui menjadi SELESAI. Anda sekarang dapat mengajukan izin baru bila diperlukan.');
+
+                // Sync ke backend database
+                fetch(`/api/perizinan/${targetId}/konfirmasi`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    }
+                }).catch(e => console.log('Sync konfirmasi DB:', e));
             }
         }
 
@@ -2250,6 +2331,17 @@
                 renderLaporanTable();
                 renderSiswaFormAjukanState();
                 showToast('success', 'Izin Disetujui! ✅', `Izin ${item.nama} (${item.kelas}) telah DISETUJUI dan dipindahkan ke menu 'Siswa Di Luar'.`);
+
+                // Sync status ke backend database
+                fetch(`/api/perizinan/${id}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    },
+                    body: JSON.stringify({ status: 'DISETUJUI', guru_piket: 'Drs. Bambang Haryono' })
+                }).catch(e => console.log('Sync setujui DB:', e));
             }
         }
 
@@ -2263,6 +2355,17 @@
                 renderLaporanTable();
                 renderSiswaFormAjukanState();
                 showToast('error', 'Izin Ditolak ❌', `Izin ${item.nama} (${item.kelas}) telah DITOLAK.`);
+
+                // Sync status ke backend database
+                fetch(`/api/perizinan/${id}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    },
+                    body: JSON.stringify({ status: 'DITOLAK', guru_piket: 'Drs. Bambang Haryono' })
+                }).catch(e => console.log('Sync tolak DB:', e));
             }
         }
 
@@ -2276,6 +2379,16 @@
                 renderLaporanTable();
                 renderSiswaFormAjukanState();
                 showToast('success', 'Siswa Kembali 🎉', `${item.nama} (${item.kelas}) telah kembali ke sekolah (Status: SELESAI).`);
+
+                // Sync status ke backend database
+                fetch(`/api/perizinan/${id}/konfirmasi`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    }
+                }).catch(e => console.log('Sync konfirmasi DB:', e));
             }
         }
 
